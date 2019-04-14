@@ -16,16 +16,10 @@ class HBF {
   // HBF structs
   struct maze_s {
     int g;  // iteration
-    int f; // heuristic
+    int f;
     double x;
     double y;
     double theta;
-
-    void to_string() {
-      char string[50];
-      std::sprintf(string, "x:%0.2f, y:%0.2f, g:%d, f:%d", x, y, g, f);
-      std::cout << string << std::endl;
-    }
   };
 
   struct maze_path {
@@ -37,11 +31,13 @@ class HBF {
   // HBF functions
   int theta_to_stack_number(double theta);
 
-  int heuristic(int x, int y, vector<int> &goal);
-
   int idx(double float_num);
 
-  vector<maze_s> expand(HBF::maze_s &state, vector<int> &goal);
+  double heuristic(double x, double y, vector<int> &goal);
+
+  static bool compare_maze_s(const HBF::maze_s &lhs, const HBF::maze_s &rhs);
+
+  vector<maze_s> expand(maze_s &state, vector<int> &goal);
 
   vector<maze_s> reconstruct_path(vector<vector<vector<maze_s>>> &came_from,
                                   vector<double> &start, HBF::maze_s &final);
